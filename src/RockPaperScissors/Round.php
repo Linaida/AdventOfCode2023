@@ -4,8 +4,8 @@ namespace App\RockPaperScissors;
 
 class Round
 {
-    private Player $player1;
-    private Player $player2;
+    private Opponent $opponent;
+    private Player $player;
     private int $score = 0;
 
 
@@ -26,35 +26,35 @@ class Round
     }
 
     /**
+     * @return Opponent
+     */
+    public function getOpponent(): Opponent
+    {
+        return $this->opponent;
+    }
+
+    /**
+     * @param Opponent $opponent
+     */
+    public function setOpponent(Opponent $opponent): void
+    {
+        $this->opponent = $opponent;
+    }
+
+    /**
      * @return Player
      */
-    public function getPlayer1(): Player
+    public function getPlayer(): Player
     {
-        return $this->player1;
+        return $this->player;
     }
 
     /**
-     * @param Player $player1
+     * @param Player $player
      */
-    public function setPlayer1(Player $player1): void
+    public function setPlayer(Player $player): void
     {
-        $this->player1 = $player1;
-    }
-
-    /**
-     * @return Player
-     */
-    public function getPlayer2(): Player
-    {
-        return $this->player2;
-    }
-
-    /**
-     * @param Player $player2
-     */
-    public function setPlayer2(Player $player2): void
-    {
-        $this->player2 = $player2;
+        $this->player = $player;
     }
 
 
