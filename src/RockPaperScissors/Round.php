@@ -36,9 +36,10 @@ class Round
     /**
      * @param Opponent $opponent
      */
-    public function setOpponent(Opponent $opponent): void
+    public function setOpponent(Opponent $opponent): Round
     {
         $this->opponent = $opponent;
+        return $this;
     }
 
     /**
@@ -52,9 +53,10 @@ class Round
     /**
      * @param Player $player
      */
-    public function setPlayer(Player $player): void
+    public function setPlayer(Player $player): Round
     {
         $this->player = $player;
+        return $this;
     }
 
 

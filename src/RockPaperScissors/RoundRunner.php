@@ -26,7 +26,7 @@ class RoundRunner
         $playerHand = $player->getHandShape();
         $playerHandScore = HandShapeEnum::getPoints($playerHand);
         $playerScore = $playerHandScore + $this->roundCalculator($opHand, $playerHand);
-        $player->setScore($playerHandScore + $playerScore);
+        $player->setScore($playerScore);
 
         /**
          * On récupère le calcul du round
@@ -38,7 +38,7 @@ class RoundRunner
 
     public function roundCalculator(string $opponentHand, string $playerHand)
     {
-        if ($opponentHand === $playerHand) {
+        if ( HandShapeEnum::getPoints($opponentHand) ===  HandShapeEnum::getPoints($playerHand)) {
             return RoundScoreEnum::DRAW;
         }
 

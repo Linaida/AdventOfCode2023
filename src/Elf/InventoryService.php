@@ -29,7 +29,7 @@ class InventoryService
 
     private function getInventoryFromStr(string $strInventory): array
     {
-        return $this->fileSplitter->splitNewLine($strInventory);
+        return $this->fileSplitter->splitRNewLine($strInventory);
     }
 
     public function getSumCaloriesFromInventories(array $inventories)
