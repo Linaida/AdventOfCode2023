@@ -9,4 +9,8 @@ enum RoundScoreEnum
     public const WON = 6;
 
 
+    public const DRAW_PLAYER = 'Y';
+    public const LOST_PLAYER = 'X';
+    public const WON_PLAYER = 'Z';
+
 }

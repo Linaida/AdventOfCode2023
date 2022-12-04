@@ -2,34 +2,30 @@
 
 namespace App\Controller;
 
-use App\EventDay1\MainService;
-use App\File\EventInputReader;
+use App\Elf\InventoryService;
 use App\RockPaperScissors\FileInputManager;
 use App\RockPaperScissors\RoundRunner;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DaysController extends AbstractController
 {
-    private EventInputReader $eventInputReader;
+    private FileInputManager $fileInputManager;
 
-    public function __construct(EventInputReader $eventInputReader)
+    public function __construct(FileInputManager $fileInputManager)
     {
-        $this->eventInputReader = $eventInputReader;
+        $this->fileInputManager = $fileInputManager;
     }
 
 
     /**
      * @Route("/day1", name="app_day1", methods={"GET"})
      */
-    public function day1(MainService $mainService): JsonResponse
+    public function day1(InventoryService $inventoryService): JsonResponse
     {
-        $inputPath =  $this->eventInputReader->getInputPath(1);
-        $solution = $mainService->run($inputPath);
+        $inputPath =  $this->fileInputManager->getInputPath(1);
+        $solution = $inventoryService->run($inputPath);
 
         return $this->json([
             'message' => sprintf('The solution of day 1 is [%s]', $solution),
@@ -41,10 +37,10 @@ class DaysController extends AbstractController
     /**
      * @Route("/day2", name="app_day2", methods={"GET"})
      */
-    public function day2(FileInputManager $fileInputManager, RoundRunner $roundRunner)
+    public function day2(RoundRunner $roundRunner)
     {
-        $inputPath =  $this->eventInputReader->getInputPath(2);
-        $rounds = $fileInputManager->getRounds($inputPath);
+        $inputPath =  $this->fileInputManager->getInputPath(2);
+        $rounds = $roundRunner->getRounds($inputPath);
         $totalScore = 0;
         foreach ($rounds as $round) {
             $totalScore += $roundRunner->run($round);
@@ -53,6 +49,29 @@ class DaysController extends AbstractController
         return $this->json([
             'message' => sprintf('The solution of day 2 is [%s]', $totalScore)
         ]);
+
+    }
+    /**
+     * @Route("/day2/part2", name="app_day2_part2", methods={"GET"})
+     */
+    public function day2part2(FileInputManager $fileInputManager, RoundRunner $roundRunner)
+    {
+        $inputPath =  $this->fileInputManager->getInputPath(2);
+        $rounds = $roundRunner->getRounds($inputPath);
+        $totalScore = 0;
+        foreach ($rounds as $round) {
+            $totalScore += $roundRunner->runEndGame($round);
+        }
+
+        return $this->json([
+            'message' => sprintf('The solution of day 2 is [%s]', $totalScore)
+        ]);
+
+    }
+
+    public function day3part1()
+    {
+        $inputPath =  $this->fileInputManager->getInputPath(3);
 
     }
 

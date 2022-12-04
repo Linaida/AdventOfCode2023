@@ -13,6 +13,13 @@ class InventoryService
         $this->fileSplitter = $fileSplitter;
     }
 
+    public function run(string $path)
+    {
+        $inventories = $this->getInventoriesFromPath($path);
+        $sumInventories = $this->getSumCaloriesFromInventories($inventories);
+        return $this->getTopThreeCalories($sumInventories);
+    }
+
     public function getInventoriesFromPath(string $path): array
     {
         $inventories = $this->fileSplitter->splitBlankLine(file_get_contents($path));

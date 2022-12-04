@@ -2,40 +2,27 @@
 
 namespace App\RockPaperScissors;
 
+use App\File\EventInputReader;
 use App\File\FileSplitter;
 
 class FileInputManager
 {
     private FileSplitter $fileSplitter;
+    private EventInputReader $eventInputReader;
 
-    public function __construct(FileSplitter $fileSplitter)
+    public function __construct(FileSplitter $fileSplitter, EventInputReader $eventInputReader)
     {
         $this->fileSplitter = $fileSplitter;
+        $this->eventInputReader = $eventInputReader;
     }
 
-    public function getRounds(string $inputPath): array
+
+    /**
+     * @param int $day
+     * @return string
+     */
+    public function getInputPath(int $day): string
     {
-        $rounds = [];
-        $fileContent = file_get_contents($inputPath);
-        $strRounnds = $this->fileSplitter->splitNewLine($fileContent);
-        foreach ($strRounnds as $strRound) {
-            $hands = preg_split('/\s/',$strRound);
-            if($hands[0] === '' || !isset($hands[1])){
-                continue;
-            }
-
-            $op = new Opponent();
-            $op->setHandShape($hands[0]);
-            $player = new Player();
-            $player->setHandShape($hands[1]);
-
-            $round = new Round();
-            $round->setOpponent($op)
-            ->setPlayer($player);
-            $rounds []= $round;
-        }
-
-        return $rounds;
-
+       return $this->eventInputReader->getInputPath($day);
     }
 }
