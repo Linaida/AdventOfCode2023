@@ -37,10 +37,13 @@ EOF;
         $regornizator =  self::$container->get(Reorganizator::class);
         $rucksacks = $regornizator->getRucksacks($input);
         $this->assertEquals($expected, $rucksacks);
+        return $rucksacks;
     }
 
     /**
      * @param string $rucksack
+     * @param array $expected
+     * @return mixed
      * @dataProvider rucksackProvider
      */
     public function testSplitCompartments(string $rucksack, array $expected)
@@ -48,6 +51,22 @@ EOF;
         $regornizator = self::$container->get(Reorganizator::class);
         $compartments = $regornizator->splitCompartments($rucksack);
         $this->assertEquals($expected, $compartments);
+        return $compartments;
+
+    }
+
+    /**
+     * @param array $compartments
+     * @param string $expected
+     * @return void
+     *
+     * @dataProvider compartmentsProvider
+     */
+    public function testGetItemType(array $compartments, string $expected)
+    {
+        $regornizator = self::$container->get(Reorganizator::class);
+        $itemType = $regornizator->getItemType($compartments[0], $compartments[1]);
+        $this->assertEquals($expected, $itemType);
 
     }
 
@@ -79,6 +98,18 @@ CrZsJsPPZsGzwwsLwLmpwMDw', ['vJrwpWtwJgWrhcsFMMfFFhFp',
             ['wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn', ['wMqvLMZHhHMvwLH', 'jbvcjnnSBnvTQFn']],
             ['ttgJtRGJQctTZtZT', ['ttgJtRGJ', 'QctTZtZT']],
             ['CrZsJsPPZsGzwwsLwLmpwMDw', ['CrZsJsPPZsGz', 'wwsLwLmpwMDw']]
+        ];
+    }
+
+    public function compartmentsProvider()
+    {
+        return [
+            [['vJrwpWtwJgWr', 'hcsFMMfFFhFp'], 'p'],
+            [['jqHRNqRjqzjGDLGL', 'rsFMfFZSrLrFZsSL'], 'L'],
+            [['PmmdzqPrV', 'vPwwTWBwg'], 'P'],
+            [['wMqvLMZHhHMvwLH', 'jbvcjnnSBnvTQFn'], 'v'],
+            [['ttgJtRGJ', 'QctTZtZT'], 't'],
+            [['CrZsJsPPZsGz', 'wwsLwLmpwMDw'], 's']
         ];
     }
 

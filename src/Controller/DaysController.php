@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Elf\InventoryService;
 use App\RockPaperScissors\FileInputManager;
 use App\RockPaperScissors\RoundRunner;
+use App\RucksackReorganization\Reorganizator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,10 +70,10 @@ class DaysController extends AbstractController
 
     }
 
-    public function day3part1()
+    public function day3part1(Reorganizator $reorganizator)
     {
-        $inputPath =  $this->fileInputManager->getInputPath(3);
-
+        $content =  $this->fileInputManager->getInputContent(3);
+        $reorganizator->run($content);
     }
 
 }

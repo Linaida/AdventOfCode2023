@@ -25,4 +25,11 @@ class FileInputManager
     {
        return $this->eventInputReader->getInputPath($day);
     }
+
+    public function getInputContent(int $day)
+    {
+        $path = $this->eventInputReader->getInputPath($day);
+        return file_get_contents($path);
+
+    }
 }
