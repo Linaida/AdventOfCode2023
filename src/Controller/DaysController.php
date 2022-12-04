@@ -70,10 +70,29 @@ class DaysController extends AbstractController
 
     }
 
+    /**
+     * @Route("/day3/part1", name="app_day3_part1", methods={"GET"})
+     */
     public function day3part1(Reorganizator $reorganizator)
     {
         $content =  $this->fileInputManager->getInputContent(3);
-        $reorganizator->run($content);
+        $total = $reorganizator->run($content);
+        return $this->json([
+            'message' => sprintf('The solution of day 3 part 1 is [%s]', $total)
+        ]);
     }
+
+    /**
+     * @Route("/day3/part2", name="app_day3_part2", methods={"GET"})
+     */
+    public function day3part2(Reorganizator $reorganizator)
+    {
+        $content =  $this->fileInputManager->getInputContent(3);
+        $total = $reorganizator->runThreeGroup($content);
+        return $this->json([
+            'message' => sprintf('The solution of day 3 part 2 is [%s]', $total)
+        ]);
+    }
+
 
 }
