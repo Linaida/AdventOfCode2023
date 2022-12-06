@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\CampCleanup\AssignmentService;
 use App\Elf\InventoryService;
 use App\RockPaperScissors\FileInputManager;
 use App\RockPaperScissors\RoundRunner;
@@ -91,6 +92,18 @@ class DaysController extends AbstractController
         $total = $reorganizator->runThreeGroup($content);
         return $this->json([
             'message' => sprintf('The solution of day 3 part 2 is [%s]', $total)
+        ]);
+    }
+    /**
+     * @Route("/day4", name="app_day4_part1", methods={"GET"})
+     */
+    public function day4part1(AssignmentService $assignmentService)
+    {
+        $content =  $this->fileInputManager->getInputContent(4);
+        $totalFullyContainedPairs = $assignmentService->getPairsWithFullyContains($content);
+        $totalOverlappedPairs = $assignmentService->getPairsOverlapping($content);
+        return $this->json([
+            'message' => sprintf('Day 4: There is [%s] pairs fully contained ans [%s] overlapped', $totalFullyContainedPairs, $totalOverlappedPairs)
         ]);
     }
 
