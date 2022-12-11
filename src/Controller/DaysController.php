@@ -7,6 +7,7 @@ use App\Elf\InventoryService;
 use App\RockPaperScissors\FileInputManager;
 use App\RockPaperScissors\RoundRunner;
 use App\RucksackReorganization\Reorganizator;
+use App\SupplyStacks\SupplyStacksService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -95,9 +96,9 @@ class DaysController extends AbstractController
         ]);
     }
     /**
-     * @Route("/day4", name="app_day4_part1", methods={"GET"})
+     * @Route("/day4", name="app_day4", methods={"GET"})
      */
-    public function day4part1(AssignmentService $assignmentService)
+    public function day4(AssignmentService $assignmentService)
     {
         $content =  $this->fileInputManager->getInputContent(4);
         $totalFullyContainedPairs = $assignmentService->getPairsWithFullyContains($content);
@@ -107,5 +108,15 @@ class DaysController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route("/day5", name="app_day5", methods={"GET"})
+     */
+    public function day5(SupplyStacksService $supplyStacksService)
+    {
+        $content =  $this->fileInputManager->getInputContent(5);
+        $result = $supplyStacksService->runPart1($content);
+        return $this->json([
+            'message' => sprintf('Day 5: Part1 [%s] - Part2 [%s] ', $result, 'NA')
+        ]);
+    }
 }

@@ -17,6 +17,6 @@ class FileSplitter
 
     public function splitBlankLine(string $content)
     {
-        return preg_split('/(\r\n\r\n)/',$content);
+        return preg_split('/(\r\n\r\n)|(\n\n)/',$content);
     }
 }
