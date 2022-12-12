@@ -16,16 +16,29 @@ class StacksMoveTest extends KernelTestCase
         self::$container = static::getContainer();
     }
 
-    public function testRun()
+    public function testPart1()
     {
-        $projectDir = self::$container->getParameter('kernel.project_dir');
         $filename = join(DIRECTORY_SEPARATOR,[__DIR__,'stacks.txt']);
         $supplyStacksService = self::$container->get(SupplyStacksService::class);
         /**
          * @var SupplyStacksService $supplyStacksService
          */
-        $stacks = $supplyStacksService->runPart1(file_get_contents($filename));
+        $content = file_get_contents($filename);
+        $schema = $supplyStacksService->getSchemaFromContent($content);
+        $part1 = $supplyStacksService->runPart1($schema);
+        $this->assertNotEmpty($part1);
+    }
 
-        $this->assertNotEmpty($stacks);
+    public function testPart2()
+    {
+        $filename = join(DIRECTORY_SEPARATOR,[__DIR__,'stacks.txt']);
+        $supplyStacksService = self::$container->get(SupplyStacksService::class);
+        /**
+         * @var SupplyStacksService $supplyStacksService
+         */
+        $content = file_get_contents($filename);
+        $schema = $supplyStacksService->getSchemaFromContent($content);
+        $part2 = $supplyStacksService->runPart2($schema);
+        $this->assertEquals('MCD',$part2);
     }
 }

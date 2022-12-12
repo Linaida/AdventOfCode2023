@@ -7,7 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Schema
 {
     private array $stacks;
+    private array $linesStacks;
     private array $indexes;
+
+    private array $moves;
 
     /**
      * @return array
@@ -42,6 +45,42 @@ class Schema
     public function setIndexes(array $indexes): Schema
     {
         $this->indexes = $indexes;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMoves(): array
+    {
+        return $this->moves;
+    }
+
+    /**
+     * @param array $moves
+     * @return Schema
+     */
+    public function setMoves(array $moves): Schema
+    {
+        $this->moves = $moves;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLinesStacks(): array
+    {
+        return $this->linesStacks;
+    }
+
+    /**
+     * @param array $linesStacks
+     * @return Schema
+     */
+    public function setLinesStacks(array $linesStacks): Schema
+    {
+        $this->linesStacks = $linesStacks;
         return $this;
     }
 

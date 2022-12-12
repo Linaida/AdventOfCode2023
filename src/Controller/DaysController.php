@@ -114,9 +114,9 @@ class DaysController extends AbstractController
     public function day5(SupplyStacksService $supplyStacksService)
     {
         $content =  $this->fileInputManager->getInputContent(5);
-        $result = $supplyStacksService->runPart1($content);
+        $parts= $supplyStacksService->run($content);
         return $this->json([
-            'message' => sprintf('Day 5: Part1 [%s] - Part2 [%s] ', $result, 'NA')
+            'message' => sprintf('Day 5: Part1 [%s] - Part2 [%s] ', $parts['part1'], $parts['part2'])
         ]);
     }
 }
