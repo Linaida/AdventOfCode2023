@@ -8,6 +8,7 @@ use App\RockPaperScissors\FileInputManager;
 use App\RockPaperScissors\RoundRunner;
 use App\RucksackReorganization\Reorganizator;
 use App\SupplyStacks\SupplyStacksService;
+use App\TuningTrouble\TuningService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -115,6 +116,17 @@ class DaysController extends AbstractController
     {
         $content =  $this->fileInputManager->getInputContent(5);
         $parts= $supplyStacksService->run($content);
+        return $this->json([
+            'message' => sprintf('Day 5: Part1 [%s] - Part2 [%s] ', $parts['part1'], $parts['part2'])
+        ]);
+    }
+    /**
+     * @Route("/day6", name="app_day6", methods={"GET"})
+     */
+    public function day6(TuningService $tuningService)
+    {
+        $content =  $this->fileInputManager->getInputContent(6);
+        $parts= $tuningService->run($content);
         return $this->json([
             'message' => sprintf('Day 5: Part1 [%s] - Part2 [%s] ', $parts['part1'], $parts['part2'])
         ]);
